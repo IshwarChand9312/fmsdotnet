@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "GetBooking";
+}
+
+@model IEnumerable<fms.Models.IBooking>
+
+
+<table class="table">
+<h4> <a asp-action="Create" class="btn btn-primary"> Book a Flight ! </a></h4>
+
+<tr>
+    <th> BOOKING ID </th>
+    <th> USER ID </th>
+    <th> FLIGHT ID </th>
+    <th> SEAT NUMBER </th>
+    <th> BOOKING DATE </th>
+    <th> EDIT </th>
+    <th> DELETE </th>
+</tr>
+@foreach(var item in Model)
+{
+    <tr>
+        <td> @item.BookingId </td>
+        <td> <a asp-action="UserDetail" asp-route-id ="@item.UserId"> @item.UserId </a> </td>
+        <td> <a asp-action= "FlightDetail" asp-route-id ="@item.FlightId"> @item.FlightId </a> </td>
+        <td> @item.SeatNumber</td>
+        <td> @item.BookingDate</td>
+        <td> <a asp-action="Edit" asp-route-id = "@item.BookingId" class="btn btn-warning"> Edit </a> </td>
+        <td> <a asp-action="Delete" asp-route-id = "@item.BookingId" class="btn btn-danger"> Delete </a> </td>
+        
+    </tr>
+}
+
+
+</table>

@@ -1,0 +1,82 @@
+@using fms.Models;
+@model IEnumerable<fms.Models.IFlight>
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h4>Book Flight</h4>
+<hr />
+
+
+@using (Html.BeginForm("Create","Booking", FormMethod.Post))
+{
+    <div class="row">
+       
+        <div class="col">
+         @Html.DropDownList("Origin", new List<SelectListItem> {
+             new SelectListItem{Text = "New Delhi", Value = "New Delhi"},
+             new SelectListItem{Text = "Banglore", Value="Banglore"},
+             new SelectListItem{Text = "Mumbai", Value ="Mumbai"}
+         }, "Select City")
+        </div>
+       
+        <div class="col">
+         @Html.DropDownList("Destination", new List<SelectListItem> {
+             new SelectListItem{Text = "New Delhi", Value = "New Delhi"},
+             new SelectListItem{Text = "Banglore", Value="Banglore"},
+             new SelectListItem{Text = "Mumbai", Value ="Mumbai"}
+         }, "Select City")
+        </div>
+        
+        <div class="col">
+         <label> Flight Date </label>
+         <input id = "FlightDate" name="FlightDate" type="Date" />
+        @* <label asp-for="FlightDate" class="control-label">Flight Date</label>
+        <input asp-for="FlightDate" type="Date" /> *@
+        @* <span asp-validation-for="FlightDate" class="text-danger"></span> *@
+        @* @Html.TextBoxFor("FlightDate", "{0:yyyy-MM-dd}", new { @class = "dateInput", @placeholder = "plz input date" }) *@
+        </div>
+        
+        <div class="col">
+        <input id="Submit" type="submit" value="Submit" class="btn btn-primary" />
+        </div> 
+    </div>
+}
+
+
+
+<table class = "table">
+    <th> ID </th>
+    <th> Flight Number </th>
+    <th> Flight Date</th>
+    <th> Flight Time </th>
+    <th> Origin </th>
+    <th> Destination </th>
+    <th> Flight Price </th>
+    <th> Book </th>
+
+@if(Model != null){
+    foreach(var item in Model){
+        <tr>
+            <td>@item.FlightId </td>
+            <td>@item.FlightNumber</td>
+            <td>@item.FlightDate</td>
+            <td>@item.FlightTime</td>
+            <td>@item.Origin</td>
+            <td>@item.Destination</td>
+            <td>@item.FlightPrice</td>
+            <td><a asp-action="TicketBooked" asp-route-id = "@item.FlightId" class="btn btn-success" > Book </a></td>
+        </tr>
+    }
+}
+
+</table>
+
+    <a asp-action="GetBooking">Back to List</a>
+
+@* @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@
+    
